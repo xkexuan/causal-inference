@@ -14,6 +14,10 @@ Monthly tourist arrivals data can be obtained from [Singstat](https://www.tableb
 
 [Note: export data in Tidy format]
 
+# Output
+![Screenshot](EDA.png)
+![Screenshot](causal.png)
+
 # Further resources
 - Documentation: [‘CausalImpact’](https://cran.r-project.org/web/packages/CausalImpact/CausalImpact.pdf)
 - Project site: [CausalImpact: An R package for causal inference in time series](https://google.github.io/CausalImpact/)
