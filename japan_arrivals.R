@@ -2,18 +2,19 @@ library(ggplot2)
 library(tidyverse)
 library(lubridate)
 library(readr)
-library(forecast)
 library(CausalImpact)
 library(dplyr)
+library(scales)
 
 # import data
-arrivals <- read.csv("R/tourism/arrivals3.csv")
+arrivals <- read.csv("arrivals.csv")
 arrivals <- as_tibble(arrivals)
 
-# change variables to appropriate type
+# change variables to appropriate type ("date")
 arrivals$month <- as.Date(paste(arrivals$month,"-01",sep=""))
 
-# create dataframe for japan arrivals
+# create dataframe for monthly japan arrivals
+# select data from 1 Aug 2014 onwards for analysis
 arrivals.jp <- arrivals %>%
   dplyr::filter(country == "Japan" & month > "2014-08-01") %>%
   dplyr::select(month, country, no_of_visitor_arrivals)
@@ -40,7 +41,7 @@ japan_xts <- as.xts(japan_xts, order.by = arrivals.jp$month)
 pre_period <- as.Date(c("2014-09-01", "2017-07-01"))
 post_period <- as.Date(c("2017-08-01", "2019-07-01"))
 
-# add additional model arguments
+# add additional model arguments to incoporate seasonality (12 months)
 model_args = list(niter = 10000,
                   nseasons = 12,
                   season.duration = 1)
